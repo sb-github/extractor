@@ -22,10 +22,12 @@ public class Crawler {
 	private Date createdDate;
 	private Date modifiedDate;
 	private Status status;
+	private String error_message;
 
 	public Crawler() {}
 
 	public Crawler(Date createdDate, Date modifiedDate, Status status) {
+		this();
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 		this.status = status;
@@ -63,4 +65,11 @@ public class Crawler {
 		this.status = status;
 	}
 
+	public String getError_message() {
+		return error_message;
+	}
+
+	public void setError_message(String error_message) {
+		this.error_message = error_message;
+	}
 }

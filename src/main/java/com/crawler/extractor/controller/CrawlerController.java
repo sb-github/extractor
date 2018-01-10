@@ -29,8 +29,8 @@ public class CrawlerController {
 	/**
 	 * Find all crawlers on some page
 	 * 
-	 * @param page is number of page; *
-	 * @param size is amount of elements displayed per page; *
+	 * @param page is number of page;
+	 * @param size is amount of elements displayed per page;
 	 * @return List<Crawler> a paged list of crawlers;
 	 */
 	@RequestMapping(method = RequestMethod.GET)
