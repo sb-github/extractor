@@ -2,7 +2,6 @@ package com.crawler.extractor.controller;
 
 import com.crawler.extractor.model.CrawlerConf;
 import com.crawler.extractor.repository.ICrawlerConfRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,27 +29,16 @@ public class CrawlerConfController {
 	/**
 	 * Find all crawlerConf on some page
 	 * 
-	 * @param page is number of page; *
-	 * @param size is amount of elements displayed per page; *
+	 * @param page is number of page;
+	 * @param size is amount of elements displayed per page;
 	 * @return List<Crawler> a paged list of crawlerConf;
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public List<CrawlerConf> getAll(@RequestParam(value = "page", defaultValue = DEFAULT_PAGE) int page,
+	public List<CrawlerConf> getAll(
+			@RequestParam(value = "page", defaultValue = DEFAULT_PAGE) int page,
 			@RequestParam(value = "size", defaultValue = DEFAULT_SIZE) int size) {
 		return findAll(page, size);
 	}
-
-	/**
-	 * Insert a crawlerConf into database
-	 * 
-	 * @param crawlerConf the model that should be added to database;
-	 * @return id of created crawlerConf
-	 */
-//	@RequestMapping(method = RequestMethod.POST)
-//	public ObjectId create(@RequestBody CrawlerConf crawlerConf) {
-//		crawlerConfRepository.insert(crawlerConf);
-//		return crawlerConf.getId();
-//	}
 
 	/**
 	 * Update the crawlerConf in database
@@ -61,16 +49,6 @@ public class CrawlerConfController {
 	public void update(@RequestBody CrawlerConf crawlerConf) {
 		crawlerConfRepository.save(crawlerConf);
 	}
-
-	/**
-	 * Delete the crawlerConf by id
-	 * 
-	 * @param id the id of crawlerConf that should be deleted;
-	 */
-//	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-//	public void delete(@PathVariable(value = "id") ObjectId id) {
-//		crawlerConfRepository.delete(id);
-//	}
 
 	/**
 	 * Method get crawlerConf which are located on the current page
