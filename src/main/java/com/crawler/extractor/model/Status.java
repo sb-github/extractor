@@ -1,29 +1,14 @@
 package com.crawler.extractor.model;
 
 /**
+ * Class that represents crawler status;
  *
- * @author Yevhenii R
+ * @author Yevhenii R, Dmytro Bilyi
  *
  * @data 05 January 2018
- * *
- *       <p>
- *       Class that represents crawler status;
+ * 
  */
 
 public enum Status {
-    NEW("New"),
-    IN_PROCESS("In process"),
-    PROCESSED("Processed"),
-    STOPPED("Stopped"),
-    FAILED("Failed");
-
-    private final String status;
-
-    private Status(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-		return this.status;
-	}
+	NEW, IN_PROCESS, PROCESSED, STOPPED, FAILED
 }

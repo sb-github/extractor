@@ -4,34 +4,28 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Class that represents collection of crawler;
  *
- * @author Yevhenii R
+ * @author Yevhenii R, Dmytro Bilyi
  *
  * @data 05 January 2018
  *
- *       <p>
- *       Class that represents collection of crawler;
  */
 @Document(collection = "crawler")
 public class Crawler {
 
 	@Id
 	private ObjectId id;
+	private Status status;
+	@JsonProperty(value = "error_message")
+	private String errorMessage;
 	private Date createdDate;
 	private Date modifiedDate;
-	private Status status;
-	private String error_message;
 
 	public Crawler() {}
-
-	public Crawler(Date createdDate, Date modifiedDate, Status status) {
-		this();
-		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
-		this.status = status;
-	}
 
 	public ObjectId getId() {
 		return id;
@@ -39,6 +33,22 @@ public class Crawler {
 
 	public void setId(ObjectId id) {
 		this.id = id;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 	public Date getCreatedDate() {
@@ -55,21 +65,5 @@ public class Crawler {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public String getError_message() {
-		return error_message;
-	}
-
-	public void setError_message(String error_message) {
-		this.error_message = error_message;
 	}
 }
