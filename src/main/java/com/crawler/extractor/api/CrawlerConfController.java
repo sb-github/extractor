@@ -1,7 +1,7 @@
 package com.crawler.extractor.api;
 
 import com.crawler.extractor.model.CrawlerConf;
-import com.crawler.extractor.repository.ICrawlerConfRepository;
+import com.crawler.extractor.service.CrawlerConfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +21,10 @@ import java.util.List;
 public class CrawlerConfController {
 
 	@Autowired
-	private ICrawlerConfRepository crawlerConfRepository;
+	private CrawlerConfService crawlerConfService;
 
 	/**
-	 * Find all crawlerConf on some page
+	 * Find all crawlerConf
 	 *
 	 * @return ResponseEntity with the list of crawlerConf and http status 'OK' or an error message
 	 *         with the http status 'INTERNAL_SERVER_ERROR'
@@ -32,7 +32,7 @@ public class CrawlerConfController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		try {
-			List<CrawlerConf> list = crawlerConfRepository.findAll();
+			List<CrawlerConf> list = crawlerConfService.findAll();
 			return new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,7 +49,7 @@ public class CrawlerConfController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestBody CrawlerConf crawlerConf) {
 		try {
-			crawlerConfRepository.save(crawlerConf);
+			crawlerConfService.update(crawlerConf);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
