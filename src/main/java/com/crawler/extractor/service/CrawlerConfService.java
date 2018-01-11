@@ -24,7 +24,7 @@ public class CrawlerConfService {
 	/**
 	 * Update the crawlerConf in database
 	 * 
-	 * @return collection of items;
+	 * @param crawlerConf with fields that should be updated;
 	 */
 	public void update(CrawlerConf crawlerConf) {
 		crawlerConfRepository.save(crawlerConf);
