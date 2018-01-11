@@ -35,11 +35,11 @@ public class CrawlerConf {
 		this.id = id;
 	}
 
-	public int getMax_number_active_crawler() {
+	public int getMaxNumberActiveCrawler() {
 		return maxNumberActiveCrawler;
 	}
 
-	public void setMax_number_active_crawler(int maxNumberActiveCrawler) {
+	public void setMaxNumberActiveCrawler(int maxNumberActiveCrawler) {
 		this.maxNumberActiveCrawler = maxNumberActiveCrawler;
 	}
 

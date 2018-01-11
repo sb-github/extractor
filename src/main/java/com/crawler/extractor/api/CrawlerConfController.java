@@ -3,8 +3,8 @@ package com.crawler.extractor.api;
 import com.crawler.extractor.model.CrawlerConf;
 import com.crawler.extractor.repository.ICrawlerConfRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -26,20 +26,33 @@ public class CrawlerConfController {
 	/**
 	 * Find all crawlerConf on some page
 	 *
-	 * @return List<Crawler> a paged list of crawlerConf;
+	 * @return ResponseEntity with the list of crawlerConf and http status 'OK' or an error message
+	 *         with the http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public List<CrawlerConf> getAll() {
-		return crawlerConfRepository.findAll();
+	public ResponseEntity<?> getAll() {
+		try {
+			List<CrawlerConf> list = crawlerConfRepository.findAll();
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	/**
 	 * Update the crawlerConf in database
 	 * 
 	 * @param crawlerConf with fields that should be updated;
+	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
+	 *         'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
-	public void update(@RequestBody CrawlerConf crawlerConf) {
-		crawlerConfRepository.save(crawlerConf);
+	public ResponseEntity<?> update(@RequestBody CrawlerConf crawlerConf) {
+		try {
+			crawlerConfRepository.save(crawlerConf);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
