@@ -2,7 +2,6 @@ package com.crawler.extractor.api;
 
 import com.crawler.extractor.model.Crawler;
 import com.crawler.extractor.service.CrawlerService;
-import com.crawler.extractor.repository.IExtractorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -26,15 +25,13 @@ public class CrawlerController {
 	@Autowired
 	private CrawlerService crawlerService;
 
-	@Autowired
-	private IExtractorRepository extractorRepository;
-
 	/**
 	 * Find all crawlers on some page
 	 * 
 	 * @param page is number of page;
 	 * @param size is amount of elements displayed per page;
-	 * @return List<Crawler> a paged list of crawlers;
+	 * @return ResponseEntity with the paged list of crawlers and http status 'OK' or an error
+	 *         message with the http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getAll(
@@ -52,13 +49,13 @@ public class CrawlerController {
 	 * Insert a crawler into database
 	 * 
 	 * @param crawler the model that should be added to database;
-	 * @return id of created crawler
+	 * @return ResponseEntity with the id of created crawler and http status 'OK' or an error
+	 *         message with the http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody Crawler crawler) {
 		try {
-			extractorRepository.insert(crawler);
-			return new ResponseEntity<>(crawler.getId(), HttpStatus.OK);
+			return new ResponseEntity<>(crawlerService.create(crawler), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -68,11 +65,13 @@ public class CrawlerController {
 	 * Update the crawler in database
 	 * 
 	 * @param crawler with fields that should be updated;
+	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
+	 *         'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestBody Crawler crawler) {
 		try {
-			extractorRepository.save(crawler);
+			crawlerService.update(crawler);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

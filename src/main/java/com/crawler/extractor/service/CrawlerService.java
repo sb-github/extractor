@@ -1,11 +1,7 @@
 package com.crawler.extractor.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,5 +32,25 @@ public class CrawlerService {
 	public List<Crawler> findAll(int page, int size) {
 		Page<Crawler> records = extractorRepository.findAll(new PageRequest(page, size));
 		return records.getContent();
+	}
+
+	/**
+	 * Insert a crawler into database
+	 * 
+	 * @param crawler the model that should be added to database;
+	 * @return id of created crawler
+	 */
+	public ObjectId create(Crawler crawler) {
+		extractorRepository.insert(crawler);
+		return crawler.getId();
+	}
+
+	/**
+	 * Update the crawler in database
+	 * 
+	 * @param crawler with fields that should be updated;
+	 */
+	public void update(Crawler crawler) {
+		extractorRepository.save(crawler);
 	}
 }
