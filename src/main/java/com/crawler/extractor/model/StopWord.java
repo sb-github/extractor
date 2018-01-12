@@ -5,30 +5,39 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Class that represents collection of Crawler_conf;
+ * Class that represents collection of stop_words;
  * 
  * @author Dmytro Bilyi
  *
- * @data 09 January 2018
+ * @data 11 January 2018
  *
  */
-@Document(collection = "crawler_conf")
-public class CrawlerConf {
+@Document(collection = "stop_word")
+public class StopWord {
 
 	@Id
 	private ObjectId id;
-	@Field(value = "max_number_active_crawler")
-	private int maxNumberActiveCrawler;
+	private String key;
 	@Field(value = "created_date")
 	private Date createdDate;
 	@Field(value = "modified_date")
 	private Date modifiedDate;
 
+	public StopWord() {}
 
-	public CrawlerConf() {}
+	public StopWord(String key, Date createdDate, Date modifiedDate) {
+		this();
+		this.key = key;
+		this.createdDate = createdDate;
+		this.modifiedDate = modifiedDate;
+	}
+
+	public StopWord(ObjectId id, String key, Date createdDate, Date modifiedDate) {
+		this(key, createdDate, modifiedDate);
+		this.id = id;
+	}
 
 	public ObjectId getId() {
 		return id;
@@ -38,12 +47,12 @@ public class CrawlerConf {
 		this.id = id;
 	}
 
-	public int getMaxNumberActiveCrawler() {
-		return maxNumberActiveCrawler;
+	public String getKey() {
+		return key;
 	}
 
-	public void setMaxNumberActiveCrawler(int maxNumberActiveCrawler) {
-		this.maxNumberActiveCrawler = maxNumberActiveCrawler;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public Date getCreatedDate() {

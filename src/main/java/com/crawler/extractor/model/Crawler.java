@@ -3,6 +3,7 @@ package com.crawler.extractor.model;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,9 +21,11 @@ public class Crawler {
 	@Id
 	private ObjectId id;
 	private Status status;
-	@JsonProperty(value = "error_message")
+	@Field(value = "error_message")
 	private String errorMessage;
+	@Field(value = "created_date")
 	private Date createdDate;
+	@Field(value = "modified_date")
 	private Date modifiedDate;
 
 	public Crawler() {}
