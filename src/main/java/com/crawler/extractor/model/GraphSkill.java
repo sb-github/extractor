@@ -50,5 +50,4 @@ public class GraphSkill {
 	public void setConnects(List<Connect> connects) {
 		this.connects = connects;
 	}
-
 }

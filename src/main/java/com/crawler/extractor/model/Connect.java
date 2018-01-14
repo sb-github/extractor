@@ -1,8 +1,6 @@
 package com.crawler.extractor.model;
-
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Field;
-
 /**
  *
  * @author Yevhenii R
