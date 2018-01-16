@@ -1,5 +1,7 @@
 package com.crawler.extractor.model;
 
+import java.util.List;
+
 /**
  * Class that represents collection of stop_words;
  * 
@@ -10,19 +12,15 @@ package com.crawler.extractor.model;
  */
 public class WordsArray {
 
-	private String[] words;
+	private List<String> words;
 
 	WordsArray() {}
 
-	public String[] getWords() {
+	public List<String> getWords() {
 		return words;
 	}
-	
-	public String getWordsByIndex(int index) {
-		return words[index];
-	}
 
-	public void setWords(String[] words) {
+	public void setWords(List<String> words) {
 		this.words = words;
 	}
 }

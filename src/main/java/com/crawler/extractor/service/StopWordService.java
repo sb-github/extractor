@@ -1,17 +1,24 @@
 package com.crawler.extractor.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.BulkOperations;
+import org.springframework.data.mongodb.core.BulkOperations.BulkMode;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
+import com.crawler.extractor.interfaces.IStopWordRepository;
 import com.crawler.extractor.model.StopWord;
 import com.crawler.extractor.model.WordsArray;
-import com.crawler.extractor.repository.IStopWordRepository;
 
 @Component
 public class StopWordService {
+
+	@Autowired
+	MongoTemplate mongoTemplate;
 
 	@Autowired
 	private IStopWordRepository stopWordRepository;
@@ -34,17 +41,34 @@ public class StopWordService {
 	 * @param wordsArray the array of stop words;
 	 */
 	public void create(WordsArray wordsArray) {
-		StopWord word;
-		for (int i = 0; i < wordsArray.getWords().length; i++) {
-			word = stopWordRepository.findByKey(wordsArray.getWordsByIndex(i).toLowerCase());
-			if (word != null) {
-				update(new StopWord(word.getId(), wordsArray.getWordsByIndex(i).toLowerCase(),
-						word.getCreatedDate(), new Date()));
-			} else {
-				update(new StopWord(wordsArray.getWordsByIndex(i).toLowerCase(), new Date(),
-						new Date()));
-			}
+
+		List<String> words = wordsArray.getWords();
+		words.replaceAll(String::toLowerCase);
+
+		List<String> listExistedStopWords = new ArrayList<>();
+
+		List<StopWord> stopWords = stopWordRepository.findByKeyIn(words);
+
+		for (StopWord item : stopWords) {
+			listExistedStopWords.add(item.getKey());
 		}
+
+		BulkOperations ops = mongoTemplate.bulkOps(BulkMode.UNORDERED, StopWord.class);
+//		Query query = new Query(Criteria.where("key").in(words));
+//		Update update = new Update().set("modified_date", new Date());
+//
+//		ops.updateMulti(query, update);
+
+		words.removeAll(listExistedStopWords);
+
+		List<StopWord> stopWordsToAdd = new ArrayList<>();
+		for (String item : words) {
+			stopWordsToAdd.add(new StopWord(item, new Date(), new Date()));
+		}
+
+		ops.insert(stopWordsToAdd);
+//
+		ops.execute();
 	}
 
 	/**

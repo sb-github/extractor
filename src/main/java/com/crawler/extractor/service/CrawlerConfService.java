@@ -3,8 +3,8 @@ package com.crawler.extractor.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.crawler.extractor.interfaces.ICrawlerConfRepository;
 import com.crawler.extractor.model.CrawlerConf;
-import com.crawler.extractor.repository.ICrawlerConfRepository;
 
 @Component
 public class CrawlerConfService {

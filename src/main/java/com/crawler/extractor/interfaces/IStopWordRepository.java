@@ -1,5 +1,6 @@
-package com.crawler.extractor.repository;
+package com.crawler.extractor.interfaces;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import com.crawler.extractor.model.StopWord;
@@ -13,5 +14,7 @@ import com.crawler.extractor.model.StopWord;
  */
 public interface IStopWordRepository extends MongoRepository<StopWord, ObjectId> {
 
-	public StopWord findByKey(String key);
+	public List<StopWord> findByKeyIn(List<String> key);
+	
+	public void updateStopWords(List<String> words);
 }

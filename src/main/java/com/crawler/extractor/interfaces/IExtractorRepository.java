@@ -1,4 +1,4 @@
-package com.crawler.extractor.repository;
+package com.crawler.extractor.interfaces;
 
 import com.crawler.extractor.model.Crawler;
 import org.bson.types.ObjectId;
