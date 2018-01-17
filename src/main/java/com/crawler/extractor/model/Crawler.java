@@ -19,6 +19,8 @@ public class Crawler {
 
 	@Id
 	private ObjectId id;
+	@Field(value = "search_condition")
+	private String searchCondition;
 	private Status status;
 	@Field(value = "error_message")
 	private String errorMessage;
@@ -26,13 +28,10 @@ public class Crawler {
 	private Date createdDate;
 	@Field(value = "modified_date")
 	private Date modifiedDate;
-	@Field(value = "search_condition")
-	private String searchCondition;
 
 	public Crawler() {}
 
 	public Crawler(Status status, Date createdDate, Date modifiedDate, String searchCondition) {
-		super();
 		this.status = status;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
