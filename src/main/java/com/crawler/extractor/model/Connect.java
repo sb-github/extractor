@@ -1,5 +1,7 @@
 package com.crawler.extractor.model;
 import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Field;
 /**
  *
@@ -17,15 +19,23 @@ public class Connect {
 	private String subSkill;
 	private int weight;
 	@Field(value = "parser_id")
-	private List<Integer> parserId;
+	private List<ObjectId> parserId;
 
-	public Connect() {}
+	public Connect() {
+	}
 
-	public Connect(String subskill, int weight, List<Integer> parserId) {
-
-		this.subSkill = subskill;
+	public Connect(String subSkill, int weight, List<ObjectId> parserId) {
+		this.subSkill = subSkill;
 		this.weight = weight;
 		this.parserId = parserId;
+	}
+
+	public String getSubSkill() {
+		return subSkill;
+	}
+
+	public void setSubSkill(String subSkill) {
+		this.subSkill = subSkill;
 	}
 
 	public int getWeight() {
@@ -36,19 +46,12 @@ public class Connect {
 		this.weight = weight;
 	}
 
-	public String getSubskill() {
-		return subSkill;
-	}
-
-	public void setSubskill(String subskill) {
-		this.subSkill = subskill;
-	}
-
-	public List<Integer> getParserId() {
+	public List<ObjectId> getParserId() {
 		return parserId;
 	}
 
-	public void setParser_id(List<Integer> parserId) {
+	public void setParserId(List<ObjectId> parserId) {
 		this.parserId = parserId;
 	}
+	
 }
