@@ -40,13 +40,13 @@ public class GraphSkillService {
 		if (graphSkill == null) {
 			return Collections.emptyList();
 		}
-		Set<ObjectId> i = new HashSet<>();
+		Set<ObjectId> skillQuantity = new HashSet<>();
 		List<Connect> connects = graphSkill.getConnects();
 		List<Skill> skillAndSubskills = new ArrayList<>();
 		for (Connect c : connects) {
-			i.addAll(c.getParserId());
+			skillQuantity.addAll(c.getParserId());
 		}
-		skillAndSubskills.add(new Skill(skill, i.size()));
+		skillAndSubskills.add(new Skill(skill, skillQuantity.size()));
 		if (subskill.equals("yes")) {
 			for (Connect c : connects) {
 				skillAndSubskills.add(new Skill(c.getSubSkill(), c.getWeight()));

@@ -5,6 +5,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  *
@@ -18,28 +19,30 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "graph_skill")
 public class GraphSkill {
 	@Id
-	private ObjectId _id;
+	private ObjectId id;
 	private String skill;
 	private List<Connect> connects;
-	private Date created_date;
-	private Date modified_date;
+	@Field(value = "created_date")
+	private Date createdDate;
+	@Field(value = "modified_date")
+	private Date modifiedDate;
 
 	public GraphSkill() {
 	}
 
-	public GraphSkill(String skill, List<Connect> connects, Date created_date, Date modified_date) {
+	public GraphSkill(String skill, List<Connect> connects, Date createdDate, Date modifiedDate) {
 		this.skill = skill;
 		this.connects = connects;
-		this.created_date = created_date;
-		this.modified_date = modified_date;
+		this.createdDate = createdDate;
+		this.modifiedDate = modifiedDate;
 	}
 
-	public ObjectId get_id() {
-		return _id;
+	public ObjectId getId() {
+		return id;
 	}
 
-	public void set_id(ObjectId _id) {
-		this._id = _id;
+	public void setId(ObjectId id) {
+		this.id = id;
 	}
 
 	public String getSkill() {
@@ -58,19 +61,19 @@ public class GraphSkill {
 		this.connects = connects;
 	}
 
-	public Date getCreated_date() {
-		return created_date;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setCreated_date(Date created_date) {
-		this.created_date = created_date;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public Date getModified_date() {
-		return modified_date;
+	public Date getModifiedDate() {
+		return modifiedDate;
 	}
 
-	public void setModified_date(Date modified_date) {
-		this.modified_date = modified_date;
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
 	}
 }
