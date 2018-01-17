@@ -1,10 +1,10 @@
 package com.crawler.extractor.model;
 
+import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * Class that represents collection of crawler.
@@ -20,10 +20,13 @@ public class Crawler {
 	@Id
 	private ObjectId id;
 	private Status status;
-	@JsonProperty(value = "error_message")
+	@Field(value = "error_message")
 	private String errorMessage;
+	@Field(value = "created_date")
 	private Date createdDate;
+	@Field(value = "modified_date")
 	private Date modifiedDate;
+	@Field(value = "search_condition")
 	private String searchCondition;
 
 	public Crawler() {}

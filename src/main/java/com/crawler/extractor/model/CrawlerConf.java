@@ -21,7 +21,9 @@ public class CrawlerConf {
 	private ObjectId id;
 	@Field(value = "max_number_active_crawler")
 	private Integer maxNumberActiveCrawler;
+	@Field(value = "created_date")
 	private Date createdDate;
+	@Field(value = "modified_date")
 	private Date modifiedDate;
 
 

@@ -19,7 +19,6 @@ public class ExtractorApplication {
 
 	@Bean
 	public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory, MongoMappingContext context) {
-
 		MappingMongoConverter converter =
 				new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), context);
 		converter.setTypeMapper(new DefaultMongoTypeMapper(null));
