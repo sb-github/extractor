@@ -4,14 +4,14 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * Class that represents collection of Crawler_conf;
+ * Class that represents collection of Crawler_conf.
  * 
- * @author Dmytro Bilyi
+ * @author Dmytro Bilyi, Stas Omelchenko
  *
- * @data 09 January 2018
+ * @date 09 January 2018
  *
  */
 @Document(collection = "crawler_conf")
@@ -19,8 +19,8 @@ public class CrawlerConf {
 
 	@Id
 	private ObjectId id;
-	@JsonProperty(value = "max_number_active_crawler")
-	private int maxNumberActiveCrawler;
+	@Field(value = "max_number_active_crawler")
+	private Integer maxNumberActiveCrawler;
 	private Date createdDate;
 	private Date modifiedDate;
 
@@ -35,11 +35,11 @@ public class CrawlerConf {
 		this.id = id;
 	}
 
-	public int getMaxNumberActiveCrawler() {
+	public Integer getMaxNumberActiveCrawler() {
 		return maxNumberActiveCrawler;
 	}
 
-	public void setMaxNumberActiveCrawler(int maxNumberActiveCrawler) {
+	public void setMaxNumberActiveCrawler(Integer maxNumberActiveCrawler) {
 		this.maxNumberActiveCrawler = maxNumberActiveCrawler;
 	}
 
