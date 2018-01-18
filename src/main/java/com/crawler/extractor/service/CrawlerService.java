@@ -50,6 +50,16 @@ public class CrawlerService {
 	}
 
 	/**
+	 * Method gets crawler by id
+	 * 
+	 * @param id the id of Crawler that should be shown
+	 * @return the entity of Crawler form db
+	 */
+	public Crawler findOne(ObjectId id) {
+		return extractorRepository.findOne(id);
+	}
+
+	/**
 	 * Update the crawler in database.
 	 * 
 	 * @param crawler with fields that should be updated
@@ -70,9 +80,9 @@ public class CrawlerService {
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<?> result =
-				restTemplate.getForEntity(crawlerURL + crawlerURN + "?id=" + createCrawler(searchCondition),
-						ResponseEntity.class, searchCondition);
+		ResponseEntity<?> result = restTemplate.getForEntity(
+				crawlerURL + crawlerURN + "?id=" + createCrawler(searchCondition),
+				ResponseEntity.class, searchCondition);
 
 		if (result.getStatusCode() != HttpStatus.OK)
 			throw new CrawlerException("Crawler wasn't created.");
