@@ -5,23 +5,17 @@ import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.mongodb.core.BulkOperations;
 import org.springframework.data.mongodb.core.BulkOperations.BulkMode;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
 import org.springframework.data.mongodb.repository.support.MongoRepositoryFactory;
 import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
 import org.springframework.stereotype.Repository;
 import com.crawler.extractor.model.StopWord;
 import com.crawler.extractor.repository.IStopWordRepository;
-import com.mongodb.MongoClient;
 
 /**
  * 
@@ -34,23 +28,12 @@ import com.mongodb.MongoClient;
 public class IStopWordRepositoryImpl extends SimpleMongoRepository<StopWord, ObjectId>
 		implements IStopWordRepository {
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
 	@Autowired
 	MongoOperations mongoOperations;
 
-	@Autowired
 	public IStopWordRepositoryImpl(MongoTemplate mongoTemplate,
 			MongoRepositoryFactory mongoRepositoryFactory) {
 		super(mongoRepositoryFactory.getEntityInformation(StopWord.class), mongoTemplate);
-	}
-
-	public IStopWordRepositoryImpl(MongoEntityInformation<StopWord, ObjectId> metadata,
-			MongoOperations mongoOperations) {
-		super(metadata, mongoOperations);
 	}
 
 	@Override

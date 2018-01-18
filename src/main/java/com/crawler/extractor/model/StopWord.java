@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * Class that represents collection of stop_words;
+ * Class that represents collection of stop_words
  * 
  * @author Dmytro Bilyi
  *
@@ -32,11 +32,6 @@ public class StopWord {
 		this.key = key;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
-	}
-
-	public StopWord(ObjectId id, String key, Date createdDate, Date modifiedDate) {
-		this(key, createdDate, modifiedDate);
-		this.id = id;
 	}
 
 	public ObjectId getId() {
