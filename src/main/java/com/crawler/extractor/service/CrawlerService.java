@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import com.crawler.extractor.interfaces.IExtractorRepository;
 import com.crawler.extractor.model.Crawler;
+import com.crawler.extractor.repository.IExtractorRepository;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package com.crawler.extractor.interfaces;
+package com.crawler.extractor.repository;
 
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -8,13 +8,13 @@ import com.crawler.extractor.model.StopWord;
 /**
  * 
  * @author Dmytro Bilyi
- *
- * @data 11 January 2018
+ * 
+ * @data 15 January 2017
  * 
  */
 public interface IStopWordRepository extends MongoRepository<StopWord, ObjectId> {
 
 	public List<StopWord> findByKeyIn(List<String> key);
-	
-	public void updateStopWords(List<String> words);
+
+	public void insertStopWords(List<String> stopWords);
 }
