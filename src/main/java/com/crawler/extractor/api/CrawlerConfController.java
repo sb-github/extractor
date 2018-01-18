@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * RESTful API for controller with CRUD operations;
+ * RESTful API for controller with CRUD operations.
  * 
- * @author Dmytro Bilyi
+ * @author Dmytro Bilyi, Stas Omelchenko
  *
- * @data 09 January 2018
+ * @date 09 January 2018
  * 
  */
 @RestController
@@ -24,7 +24,7 @@ public class CrawlerConfController {
 	private CrawlerConfService crawlerConfService;
 
 	/**
-	 * Find all crawlerConf
+	 * Find all crawlerConf.
 	 *
 	 * @return ResponseEntity with the list of crawlerConf and http status 'OK' or an error message
 	 *         with the http status 'INTERNAL_SERVER_ERROR'
@@ -40,9 +40,9 @@ public class CrawlerConfController {
 	}
 
 	/**
-	 * Update the crawlerConf in database
+	 * Update the crawlerConf in database.
 	 * 
-	 * @param crawlerConf with fields that should be updated;
+	 * @param crawlerConf with fields that should be updated
 	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
 	 *         'INTERNAL_SERVER_ERROR'
 	 */

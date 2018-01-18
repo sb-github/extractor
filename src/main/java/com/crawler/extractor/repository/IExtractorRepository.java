@@ -1,16 +1,18 @@
 package com.crawler.extractor.repository;
 
 import com.crawler.extractor.model.Crawler;
+import com.crawler.extractor.model.Status;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * 
- * @author Dmytro Bilyi
+ * @author Stas Omelchenko, Dmytro Bilyi
  * 
- * @data 09 January 2017
- * 
+ * @date 05 January 2017
+ *
  */
 public interface IExtractorRepository extends MongoRepository<Crawler, ObjectId> {
-
+	List<Crawler> findByStatusIn(Status... status);
 }

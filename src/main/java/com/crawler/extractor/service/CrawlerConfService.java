@@ -6,6 +6,13 @@ import org.springframework.stereotype.Component;
 import com.crawler.extractor.model.CrawlerConf;
 import com.crawler.extractor.repository.ICrawlerConfRepository;
 
+/**
+ * 
+ * @author Dmytro Bilyi, Stas Omelchenko
+ * 
+ * @date 05 January 2017
+ * 
+ */
 @Component
 public class CrawlerConfService {
 
@@ -29,4 +36,14 @@ public class CrawlerConfService {
 	public void update(CrawlerConf crawlerConf) {
 		crawlerConfRepository.save(crawlerConf);
 	}
+	
+	/**
+	 * Get maximum number of active crawler
+	 * 
+	 * @return maximum number
+	 */
+	public Integer getMaxNumberActiveCrawler() {
+		return findAll().get(0).getMaxNumberActiveCrawler();
+	}
+
 }

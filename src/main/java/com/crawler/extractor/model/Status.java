@@ -1,11 +1,11 @@
 package com.crawler.extractor.model;
 
 /**
- * Class that represents crawler status;
+ * Class that represents crawler status.
  *
- * @author Yevhenii R, Dmytro Bilyi
+ * @author Yevhenii R, Dmytro Bilyi, Stas Omelchenko
  *
- * @data 05 January 2018
+ * @date 05 January 2018
  * 
  */
 

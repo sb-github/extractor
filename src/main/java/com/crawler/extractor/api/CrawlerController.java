@@ -1,5 +1,6 @@
 package com.crawler.extractor.api;
 
+import com.crawler.extractor.exception.CrawlerException;
 import com.crawler.extractor.model.Crawler;
 import com.crawler.extractor.service.CrawlerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * RESTful API for controller with CRUD operations;
+ * RESTful API for controller with CRUD operations.
  * 
- * @author YevheniiR, Dmytro Bilyi
+ * @author YevheniiR, Dmytro Bilyi, Stas Omelchenko
  * 
- * @data 05 January 2017
+ * @date 05 January 2017
  * 
  */
+
 @PropertySource(value = "classpath:crawler.properties")
 @RestController
 @RequestMapping("extractor/rest/v1/crawler")
@@ -26,10 +28,10 @@ public class CrawlerController {
 	private CrawlerService crawlerService;
 
 	/**
-	 * Find all crawlers on some page
+	 * Find all crawlers on some page.
 	 * 
-	 * @param page is number of page;
-	 * @param size is amount of elements displayed per page;
+	 * @param page is number of page
+	 * @param size is amount of elements displayed per page
 	 * @return ResponseEntity with the paged list of crawlers and http status 'OK' or an error
 	 *         message with the http status 'INTERNAL_SERVER_ERROR'
 	 */
@@ -46,25 +48,26 @@ public class CrawlerController {
 	}
 
 	/**
-	 * Insert a crawler into database
+	 * Run a crawler.
 	 * 
-	 * @param crawler the model that should be added to database;
-	 * @return ResponseEntity with the id of created crawler and http status 'OK' or an error
-	 *         message with the http status 'INTERNAL_SERVER_ERROR'
+	 * @param searchCondition the criteria for crawler
+	 * @return ResponseEntity with http status 'OK' or an error message with the http status
+	 *         'INTERNAL_SERVER_ERROR'
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody Crawler crawler) {
+	@RequestMapping(method = RequestMethod.GET, value = "/run")
+	public ResponseEntity<?> run(@RequestParam(value = "searchcondition") String searchCondition) {
 		try {
-			return new ResponseEntity<>(crawlerService.create(crawler), HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			crawlerService.run(searchCondition);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (CrawlerException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	/**
-	 * Update the crawler in database
+	 * Update the crawler in database.
 	 * 
-	 * @param crawler with fields that should be updated;
+	 * @param crawler with fields that should be updated
 	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
 	 *         'INTERNAL_SERVER_ERROR'
 	 */

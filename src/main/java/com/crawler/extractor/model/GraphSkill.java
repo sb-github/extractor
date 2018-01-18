@@ -1,33 +1,41 @@
 package com.crawler.extractor.model;
 
 import java.util.Date;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * Class that represents collection of Crawler_conf.
- * 
- * @author Dmytro Bilyi, Stas Omelchenko
  *
- * @date 09 January 2018
+ * @author Yevhenii R
+ *
+ * @date 10 January 2018
+ * 
+ *       Class that represents collection of graph_skill;
  *
  */
-@Document(collection = "crawler_conf")
-public class CrawlerConf {
-
+@Document(collection = "graph_skill")
+public class GraphSkill {
 	@Id
 	private ObjectId id;
-	@Field(value = "max_number_active_crawler")
-	private Integer maxNumberActiveCrawler;
+	private String skill;
+	private List<Connect> connects;
 	@Field(value = "created_date")
 	private Date createdDate;
 	@Field(value = "modified_date")
 	private Date modifiedDate;
 
+	public GraphSkill() {
+	}
 
-	public CrawlerConf() {}
+	public GraphSkill(String skill, List<Connect> connects, Date createdDate, Date modifiedDate) {
+		this.skill = skill;
+		this.connects = connects;
+		this.createdDate = createdDate;
+		this.modifiedDate = modifiedDate;
+	}
 
 	public ObjectId getId() {
 		return id;
@@ -37,12 +45,20 @@ public class CrawlerConf {
 		this.id = id;
 	}
 
-	public Integer getMaxNumberActiveCrawler() {
-		return maxNumberActiveCrawler;
+	public String getSkill() {
+		return skill;
 	}
 
-	public void setMaxNumberActiveCrawler(Integer maxNumberActiveCrawler) {
-		this.maxNumberActiveCrawler = maxNumberActiveCrawler;
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
+	public List<Connect> getConnects() {
+		return connects;
+	}
+
+	public void setConnects(List<Connect> connects) {
+		this.connects = connects;
 	}
 
 	public Date getCreatedDate() {
