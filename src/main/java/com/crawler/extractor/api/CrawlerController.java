@@ -3,6 +3,7 @@ package com.crawler.extractor.api;
 import com.crawler.extractor.exception.CrawlerException;
 import com.crawler.extractor.model.Crawler;
 import com.crawler.extractor.service.CrawlerService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,21 @@ public class CrawlerController {
 		try {
 			crawlerService.update(crawler);
 			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
+	 * Find the Crawler by id
+	 * 
+	 * @param id the id of Crawler that should be shown
+	 * @return the entity of Crawler form db
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public ResponseEntity<?> getById(@PathVariable(value = "id") ObjectId id) {
+		try {
+			return new ResponseEntity<>(crawlerService.findOne(id), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
