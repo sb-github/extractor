@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 @SpringBootApplication
 public class ExtractorApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ExtractorApplication.class, args);
 	}
