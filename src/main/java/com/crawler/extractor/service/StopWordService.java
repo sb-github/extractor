@@ -2,6 +2,7 @@ package com.crawler.extractor.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,5 +66,14 @@ public class StopWordService {
 	 */
 	public void update(StopWord stopWord) {
 		iStopWordRepositoryImpl.save(stopWord);
+	}
+
+	/**
+	 * Delete the stopWord from database
+	 * 
+	 * @param id the id of stopWord that should be deleted
+	 */
+	public void delete(ObjectId id) {
+		iStopWordRepositoryImpl.delete(id);
 	}
 }
