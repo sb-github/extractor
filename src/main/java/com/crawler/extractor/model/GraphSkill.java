@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -19,16 +20,18 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "graph_skill")
 public class GraphSkill {
 	@Id
+	@JsonIgnore
 	private ObjectId id;
 	private String skill;
+	@Field(value = "crawler_id")
+	private ObjectId crawlerId;
 	private List<Connect> connects;
 	@Field(value = "created_date")
 	private Date createdDate;
 	@Field(value = "modified_date")
 	private Date modifiedDate;
 
-	public GraphSkill() {
-	}
+	public GraphSkill() {}
 
 	public GraphSkill(String skill, List<Connect> connects, Date createdDate, Date modifiedDate) {
 		this.skill = skill;
@@ -51,6 +54,14 @@ public class GraphSkill {
 
 	public void setSkill(String skill) {
 		this.skill = skill;
+	}
+
+	public ObjectId getCrawlerId() {
+		return crawlerId;
+	}
+
+	public void setCrawlerId(ObjectId crawlerId) {
+		this.crawlerId = crawlerId;
 	}
 
 	public List<Connect> getConnects() {
