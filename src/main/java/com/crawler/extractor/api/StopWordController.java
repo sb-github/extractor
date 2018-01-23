@@ -1,10 +1,12 @@
 package com.crawler.extractor.api;
 
 import java.util.List;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,6 +80,22 @@ public class StopWordController {
 	public ResponseEntity<?> update(@RequestBody StopWord stopWord) {
 		try {
 			stopWordService.update(stopWord);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+
+	/**
+	 * Delete the crawler by id
+	 * 
+	 * @param id the id of crawler that should be deleted;
+	 */
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public ResponseEntity<?> delete(@PathVariable(value = "id") ObjectId id) {
+		try {
+			stopWordService.delete(id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
