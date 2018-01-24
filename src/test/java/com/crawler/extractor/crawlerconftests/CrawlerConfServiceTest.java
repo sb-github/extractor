@@ -1,12 +1,14 @@
-package com.crawler.extractor;
+package com.crawler.extractor.crawlerconftests;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+
 import java.util.Date;
+
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
@@ -18,27 +20,27 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+
 import com.crawler.extractor.model.CrawlerConf;
 import com.crawler.extractor.repository.ICrawlerConfRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CrawlerConfServiceTest {
-	
 	private final String URL = "/extractor/rest/v1/crawler/conf";
 	private static int maxNumberActiveCrawlers = 4;
-	
+
 	private MockMvc mockMvc;
 	private Date date = new Date();
 	private CrawlerConf crawlerConf;
-	
+
 	@Autowired
 	private WebApplicationContext webApplicationContext;
-	
+
 	@Autowired
 	private ICrawlerConfRepository iCrawlerConfRepository;
-	
+
 	@Autowired
 	private ObjectMapper objMapper;
 
@@ -73,17 +75,17 @@ public class CrawlerConfServiceTest {
 	@Test
 	public void testGetAllCrawlerConf() throws Exception {
 		mockMvc.perform(get(getURL())).andExpect(status().isOk());
-		assertThat(iCrawlerConfRepository.findAll()).isNotEmpty().as("Whether list of crawlers is empty");
-		assertEquals(iCrawlerConfRepository.findAll().size(), 1);
+		assertFalse("List of crawlerConf must not be empty", iCrawlerConfRepository.findAll().isEmpty());
+		assertEquals(iCrawlerConfRepository.findAll().size(), 2);
 	}
 
 	private void checkIfCrawlerConfIsNotNull(CrawlerConf crawlerConf) {
-		assertThat(crawlerConf).isNotNull().as("Whether object is not null");
-		assertThat(crawlerConf.getId()).isNotNull().as("Whether id field of object is not null");
-		assertThat(crawlerConf.getMaxNumberActiveCrawler()).isNotNull()
-				.as("Whether maxNumberActiveCrawler field of object is not null");
-		assertThat(crawlerConf.getCreatedDate()).isNotNull().as("Whether createdDate field of object is not null");
-		assertThat(crawlerConf.getModifiedDate()).isNotNull().as("Whether modifiedDate of object is empty");
+		assertNotNull("The crawlerConf must not be null", crawlerConf);
+		assertNotNull("The crawlerConf id field must not be null", crawlerConf.getId());
+		assertNotNull("The crawlerConf maxNumberActiveCrawler field must not be null",
+				crawlerConf.getMaxNumberActiveCrawler());
+		assertNotNull("The crawlerConf createdDate field must not be null", crawlerConf.getCreatedDate());
+		assertNotNull("The crawlerConf modifiedDate field must not be null", crawlerConf.getModifiedDate());
 	}
 
 	private String getURL() {
