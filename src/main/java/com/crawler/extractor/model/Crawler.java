@@ -5,7 +5,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import java.util.Date;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * Class that represents collection of crawler.
@@ -19,6 +20,7 @@ import java.util.Date;
 public class Crawler {
 
 	@Id
+	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	@Field(value = "search_condition")
 	private String searchCondition;
@@ -41,7 +43,7 @@ public class Crawler {
 
 	public ObjectId getId() {
 		return id;
-	}    
+	}
 
 	public void setId(ObjectId id) {
 		this.id = id;
@@ -85,5 +87,5 @@ public class Crawler {
 
 	public void setSearchCondition(String searchCondition) {
 		this.searchCondition = searchCondition;
-	}		
+	}
 }

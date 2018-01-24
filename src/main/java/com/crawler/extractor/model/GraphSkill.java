@@ -7,6 +7,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  *
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class GraphSkill {
 	@Id
 	@JsonIgnore
+	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	private String skill;
 	@Field(value = "crawler_id")
