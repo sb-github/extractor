@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import java.util.Date;
-
 /**
  * Class that represents collection of crawler.
  *
