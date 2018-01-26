@@ -56,16 +56,9 @@ public class StopWordService {
 
 		words.removeAll(listExistedStopWords);
 
-		iStopWordRepositoryImpl.insertStopWords(words);
-	}
-
-	/**
-	 * Update the stopWord in database
-	 * 
-	 * @param stopWord with fields that should be updated;
-	 */
-	public void update(StopWord stopWord) {
-		iStopWordRepositoryImpl.save(stopWord);
+		if (!words.isEmpty()) {
+			iStopWordRepositoryImpl.insertStopWords(words);
+		}
 	}
 
 	/**
