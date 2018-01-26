@@ -24,7 +24,14 @@ repositories {
 
 
 dependencies {
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+  	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
+  	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

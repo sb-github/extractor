@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * Class that represents collection of stop_words
@@ -18,6 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class StopWord {
 
 	@Id
+	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	private String key;
 	@Field(value = "created_date")

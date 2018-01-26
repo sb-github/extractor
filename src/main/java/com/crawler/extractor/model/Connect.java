@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  *
  * @author Yevhenii R
@@ -18,6 +19,7 @@ public class Connect {
 	@Field(value = "subskill")
 	private String subSkill;
 	private int weight;
+	@JsonIgnore
 	@Field(value = "parser_id")
 	private List<ObjectId> parserId;
 
