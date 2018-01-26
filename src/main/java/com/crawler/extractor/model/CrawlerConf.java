@@ -6,6 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 /**
  * Class that represents collection of Crawler_conf.
  * 
@@ -18,6 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class CrawlerConf {
 
 	@Id
+	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	@Field(value = "max_number_active_crawler")
 	private Integer maxNumberActiveCrawler;

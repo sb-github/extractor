@@ -1,7 +1,8 @@
 package com.crawler.extractor.crawlerconftests;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,12 +29,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CrawlerConfServiceTest {
+	
 	private final String URL = "/extractor/rest/v1/crawler/conf";
 	private static int maxNumberActiveCrawlers = 4;
 
 	private MockMvc mockMvc;
 	private Date date = new Date();
 	private CrawlerConf crawlerConf;
+	private ObjectMapper objMapper = new ObjectMapper();
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
@@ -41,8 +44,7 @@ public class CrawlerConfServiceTest {
 	@Autowired
 	private ICrawlerConfRepository iCrawlerConfRepository;
 
-	@Autowired
-	private ObjectMapper objMapper;
+	
 
 	@Before
 	public void setup() throws Exception {
