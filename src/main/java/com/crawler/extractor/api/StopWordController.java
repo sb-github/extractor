@@ -70,24 +70,6 @@ public class StopWordController {
 	}
 
 	/**
-	 * Update the stop word in database
-	 * 
-	 * @param stop word with fields that should be updated;
-	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
-	 *         'INTERNAL_SERVER_ERROR'
-	 */
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody StopWord stopWord) {
-		try {
-			stopWordService.update(stopWord);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-
-	/**
 	 * Delete the crawler by id
 	 * 
 	 * @param id the id of crawler that should be deleted;
