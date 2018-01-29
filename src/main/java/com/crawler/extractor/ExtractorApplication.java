@@ -49,6 +49,7 @@ public class ExtractorApplication {
 		return new MongoRepositoryFactory(mongoTemplate());
 	}
 
+	@Bean
 	public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory, MongoMappingContext context) {
 		MappingMongoConverter converter =
 				new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory), context);
