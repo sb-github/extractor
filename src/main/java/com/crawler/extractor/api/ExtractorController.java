@@ -49,7 +49,7 @@ public class ExtractorController {
 
 	/**
 	 * 
-	 * The method except the crawlerId and return paged list of graph_skills by this id; You can
+	 * The method accept the crawlerId and return paged list of graph_skills by this id; You can
 	 * also specify page you want to view and amount of items to show on that page;
 	 * 
 	 * @param crawlerId
@@ -73,7 +73,7 @@ public class ExtractorController {
 
 	/**
 	 * 
-	 * The method except the crawlerId and return list that include: vacancy and parsed_vacancy with
+	 * The method accept the crawlerId and return list that include: vacancy and parsed_vacancy with
 	 * its amount and status
 	 * 
 	 * @param crawlerId

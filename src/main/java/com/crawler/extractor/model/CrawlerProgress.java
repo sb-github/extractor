@@ -8,14 +8,14 @@ package com.crawler.extractor.model;
  */
 public class CrawlerProgress {
 
-	private String collecetion;
+	private String collection;
 	private long amount;
 	private Status vacancyStatus;
 
 	public CrawlerProgress() {}
 
 	public CrawlerProgress(String collecetion, long amount, Status vacancyStatus) {
-		this.collecetion = collecetion;
+		this.collection = collecetion;
 		this.amount = amount;
 		this.vacancyStatus = vacancyStatus;
 	}
@@ -37,10 +37,10 @@ public class CrawlerProgress {
 	}
 
 	public String getCollecetion() {
-		return collecetion;
+		return collection;
 	}
 
 	public void setCollecetion(String collecetion) {
-		this.collecetion = collecetion;
+		this.collection = collecetion;
 	}
 }

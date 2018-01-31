@@ -17,8 +17,5 @@ import com.crawler.extractor.model.Vacancy;
 @Repository
 public interface IVacancy extends MongoRepository<Vacancy, ObjectId> {
 
-	List<Vacancy> findByCrawlerIdAndStatus(ObjectId crawlerId, Status status);
-
 	long countByCrawlerIdAndStatus(ObjectId crawlerId, Status status);
-
 }

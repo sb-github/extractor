@@ -4,19 +4,19 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 @Document(collection = "vacancy")
 public class Vacancy {
-	private String collecetion;
+
 	@Id
 	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	@JsonSerialize(using = ToStringSerializer.class)
 	@Field("crawler_id")
 	private ObjectId crawlerId;
+	private String collecetion;
 	private Status status;
 
 	public ObjectId getId() {
