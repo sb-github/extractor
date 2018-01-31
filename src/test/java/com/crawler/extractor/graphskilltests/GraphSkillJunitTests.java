@@ -56,7 +56,7 @@ public class GraphSkillJunitTests {
 		response.add(new Skill("SpringTest", 3));
 		when(graphSkillService.findBySkillAndSubSkill("SpringTest", "no")).thenReturn(response);
 
-		mockMvc.perform(get("/extractor/crawler?skill=SpringTest&subskill=no").contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/extractor/rest/v1/?skill=SpringTest&subskill=no").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$[0].skill", is(response.get(0).getSkill())))
 				.andExpect(jsonPath("$[0].quantity", is(response.get(0).getQuantity()))).andExpect(status().isOk());
 		verify(graphSkillService, times(1)).findBySkillAndSubSkill("SpringTest", "no");
@@ -74,7 +74,7 @@ public class GraphSkillJunitTests {
 		response.add(new Skill("C#", 6));
 		when(graphSkillService.findBySkillAndSubSkill("SpringTest", "yes")).thenReturn(response);
 
-		mockMvc.perform(get("/extractor/crawler?skill=SpringTest&subskill=yes").contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(get("/extractor/rest/v1/?skill=SpringTest&subskill=yes").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$", Matchers.hasSize(6)))
 				.andExpect(jsonPath("$[0].skill", is(response.get(0).getSkill())))
 				.andExpect(jsonPath("$[0].quantity", is(response.get(0).getQuantity())))
