@@ -28,7 +28,7 @@ import com.crawler.extractor.service.GraphSkillService;
  */
 @PropertySource(value = "classpath:crawler.properties")
 @RestController
-@RequestMapping("extractor/rest/v1/crawler")
+@RequestMapping("extractor/rest/v1/")
 public class ExtractorController {
 	@Autowired
 	private GraphSkillService graphSkillService;
