@@ -10,18 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.crawler.extractor.model.CrawlerProgress;
 import com.crawler.extractor.model.GraphSkill;
 import com.crawler.extractor.model.Skill;
+import com.crawler.extractor.model.Vacancy;
+import com.crawler.extractor.service.CrawlerProgressService;
 import com.crawler.extractor.service.GraphSkillService;
 
 /**
+ * RESTful API for graph_skill controller;
  * 
- * @author Yevhenii R
+ * 
+ * @author Yevhenii R, Alexander Torchynskyi
  * 
  * @date 10 January 2018
  * 
- *       RESTful API for graph_skill controller;
- *
  */
 @PropertySource(value = "classpath:crawler.properties")
 @RestController
@@ -29,6 +32,8 @@ import com.crawler.extractor.service.GraphSkillService;
 public class ExtractorController {
 	@Autowired
 	private GraphSkillService graphSkillService;
+	@Autowired
+	private CrawlerProgressService crawelerProgressService;
 
 	@RequestMapping(value = "extractor/crawler", method = RequestMethod.GET)
 	public ResponseEntity<?> getBySkillAndSubSkill(@RequestParam(value = "skill") String skill,
@@ -42,6 +47,17 @@ public class ExtractorController {
 		}
 	}
 
+	/**
+	 * 
+	 * The method except the crawlerId and return paged list of graph_skills by this id; You can
+	 * also specify page you want to view and amount of items to show on that page;
+	 * 
+	 * @param crawlerId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+
 	@RequestMapping(value = "extractor/graphskill", method = RequestMethod.GET)
 	public ResponseEntity<?> getGraphSkillByCrawler(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId,
@@ -49,6 +65,26 @@ public class ExtractorController {
 			@RequestParam(value = "size", defaultValue = "${default_size_for_graph}") int size) {
 		try {
 			List<GraphSkill> result = graphSkillService.findByCrawlerId(crawlerId, page, size);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
+	 * 
+	 * The method except the crawlerId and return list that include: vacancy and parsed_vacancy with
+	 * its amount and status
+	 * 
+	 * @param crawlerId
+	 * @return List<CrawlerProgress>
+	 */
+
+	@RequestMapping(value = "extractor/rest/v1/crawler/progress", method = RequestMethod.GET)
+	public ResponseEntity<?> getCrawlerProgressCount(
+			@RequestParam(value = "crawler_id") ObjectId crawlerId) {
+		try {
+			List<CrawlerProgress> result = crawelerProgressService.getProgress(crawlerId);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

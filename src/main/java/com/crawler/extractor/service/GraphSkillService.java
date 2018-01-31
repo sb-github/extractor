@@ -29,9 +29,12 @@ public class GraphSkillService {
 	/**
 	 * Find all skills
 	 * 
-	 * @param skill is name of skill what we are looking for;
-	 * @param subskill is option that includes or excludes display subskills;
-	 * @return List<Skill> with the name of the skill with subskills and its quantity;
+	 * @param skill
+	 *            is name of skill what we are looking for;
+	 * @param subskill
+	 *            is option that includes or excludes display subskills;
+	 * @return List<Skill> with the name of the skill with subskills and its
+	 *         quantity;
 	 */
 	public List<Skill> findBySkillAndSubSkill(String skill, String subskill) {
 		GraphSkill graphSkill = iGraphSkillRepository.findBySkill(skill);
@@ -53,6 +56,7 @@ public class GraphSkillService {
 		return skillAndSubskills;
 	}
 
+	
 	public List<GraphSkill> findByCrawlerId(ObjectId crawlerId, int page, int size) {
 		List<GraphSkill> listOfGrpahSkills = iGraphSkillRepository.findByCrawlerId(crawlerId);
 		return listOfGrpahSkills.stream().skip(page * size).limit(size)
