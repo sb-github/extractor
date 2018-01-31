@@ -29,7 +29,7 @@ import com.crawler.extractor.service.CrawlerService;
 @RequestMapping("extractor/rest/v1/crawler")
 public class CrawlerController {
 	
-	private static final Logger LOGGER = Logger.getLogger(CrawlerController.class);
+	private static final Logger LOGGER = Logger.getLogger("api-logger");
 
 	@Autowired
 	private CrawlerService crawlerService;
