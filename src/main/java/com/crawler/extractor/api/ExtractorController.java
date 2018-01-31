@@ -28,14 +28,23 @@ import com.crawler.extractor.service.GraphSkillService;
  */
 @PropertySource(value = "classpath:crawler.properties")
 @RestController
-@RequestMapping
+@RequestMapping("extractor/rest/v1/crawler")
 public class ExtractorController {
 	@Autowired
 	private GraphSkillService graphSkillService;
 	@Autowired
 	private CrawlerProgressService crawelerProgressService;
 
-	@RequestMapping(value = "extractor/crawler", method = RequestMethod.GET)
+	/**
+	 * 
+	 * The method accept parameter skill and boolean parameter subskill (optional), then return the
+	 * skill with amount of iteration, and the amount of iteration for subskills.
+	 * 
+	 * @param skill
+	 * @param subskill
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> getBySkillAndSubSkill(@RequestParam(value = "skill") String skill,
 			@RequestParam(value = "subskill", required = false,
 					defaultValue = "no") String subskill) {
@@ -58,7 +67,7 @@ public class ExtractorController {
 	 * @return
 	 */
 
-	@RequestMapping(value = "extractor/graphskill", method = RequestMethod.GET)
+	@RequestMapping(value = "/graphskill", method = RequestMethod.GET)
 	public ResponseEntity<?> getGraphSkillByCrawler(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId,
 			@RequestParam(value = "page", defaultValue = "${default_page_for_graph}") int page,
@@ -80,7 +89,7 @@ public class ExtractorController {
 	 * @return List<CrawlerProgress>
 	 */
 
-	@RequestMapping(value = "extractor/rest/v1/crawler/progress", method = RequestMethod.GET)
+	@RequestMapping(value = "/progress", method = RequestMethod.GET)
 	public ResponseEntity<?> getCrawlerProgressCount(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId) {
 		try {
