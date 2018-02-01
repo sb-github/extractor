@@ -33,7 +33,7 @@ public class GraphSkillTests {
 
 	private MockMvc mockMvc;
 
-	final String URL = "extractor/crawler";
+	final String URL = "/extractor/rest/v1/";
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
@@ -78,7 +78,7 @@ public class GraphSkillTests {
 
 	@Test
 	public void testGetSubskillsQuantity() throws Exception {
-		mockMvc.perform(get("/extractor/crawler/?skill=" + graphSkills.get(0).getSkill())).andExpect(status().isOk())
+		mockMvc.perform(get("/extractor/rest/v1/?skill=" + graphSkills.get(0).getSkill())).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$[0].skill", is(graphSkills.get(0).getSkill())))
 				.andExpect(jsonPath("$[0].quantity", is(2)));
@@ -86,7 +86,7 @@ public class GraphSkillTests {
 
 	@Test
 	public void testGetSubskills() throws Exception {
-		mockMvc.perform(get("/extractor/crawler/?skill=" + graphSkills.get(0).getSkill() + "&subskill=yes"))
+		mockMvc.perform(get("/extractor/rest/v1/?skill=" + graphSkills.get(0).getSkill() + "&subskill=yes"))
 				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$[0].skill", is(graphSkills.get(0).getSkill())))
 				.andExpect(jsonPath("$[0].quantity", is(2)))
