@@ -44,7 +44,7 @@ public class CrawlerProgressService {
 				getVacancyStatusNew(crawlerId), Status.NEW);
 
 		CrawlerProgress progressOfvacancyProgressed =
-				new CrawlerProgress(NAME_OF_PARSED_VACANCY_COLLECTION,
+				new CrawlerProgress(NAME_OF_VACANCY_COLLECTION,
 						getVacancyStatusProgressed(crawlerId), Status.PROCESSED);
 
 		crawlerProgress.add(progressOfvacancyProgressed);
@@ -52,8 +52,9 @@ public class CrawlerProgressService {
 	}
 
 	private void getParsedVacancyProgress(ObjectId crawlerId) {
-		CrawlerProgress progressOfVacancyNew = new CrawlerProgress(NAME_OF_VACANCY_COLLECTION,
-				getProgressedVacancyStatusNew(crawlerId), Status.NEW);
+		CrawlerProgress progressOfVacancyNew =
+				new CrawlerProgress(NAME_OF_PARSED_VACANCY_COLLECTION,
+						getProgressedVacancyStatusNew(crawlerId), Status.NEW);
 
 		CrawlerProgress progressOfvacancyProgressed =
 				new CrawlerProgress(NAME_OF_PARSED_VACANCY_COLLECTION,
