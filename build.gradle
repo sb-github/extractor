@@ -15,8 +15,8 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
 group = 'com.crawler'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+jar.baseName = 'extractor'
 
 repositories {
 	mavenCentral()
@@ -24,7 +24,16 @@ repositories {
 
 
 dependencies {
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	
+	compile group: 'de.siegmar', name: 'logback-gelf', version: '1.0.4'
+	
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+  	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
+  	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
