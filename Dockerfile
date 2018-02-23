@@ -7,4 +7,6 @@ RUN gradle build -x test
 
 FROM openjdk:8-jre
 COPY --from=BUILD_IMAGE /apps/build/libs/extractor.jar .
-ENTRYPOINT java -jar extractor.jar
+COPY startup.sh .
+
+CMD bash startup.sh
