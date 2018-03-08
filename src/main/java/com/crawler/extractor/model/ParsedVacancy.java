@@ -7,6 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+/**
+ * 
+ * @author Yevhenii R
+ * 
+ * @date 10 January 2018
+ */
 
 @Document(collection = "parsed_vacancy")
 public class ParsedVacancy {

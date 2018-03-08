@@ -29,7 +29,7 @@ import com.crawler.extractor.repository.IExtractorRepository;
 @PropertySource(value = "classpath:application.properties")
 @Service
 public class CrawlerService {
-	
+
 	private static final Logger LOGGER = Logger.getLogger(CrawlerService.class);
 
 	@Autowired
@@ -85,13 +85,14 @@ public class CrawlerService {
 
 		ObjectId id = createCrawler(searchCondition);
 		LOGGER.info("running crawler with id: " + id);
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Crawler> result = restTemplate.exchange(crawlerURL + crawlerURN + id,
 				HttpMethod.POST, null, Crawler.class);
-		
+
 		if (result.getStatusCode() != HttpStatus.OK) {
-			throw new CrawlerException(result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
+			throw new CrawlerException(
+					result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
 		}
 	}
 

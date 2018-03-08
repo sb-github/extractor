@@ -18,7 +18,6 @@ import com.crawler.extractor.repository.IVacancy;
  *
  * @date 31 January 2018
  */
-
 @Component
 public class CrawlerProgressService {
 
@@ -32,6 +31,12 @@ public class CrawlerProgressService {
 
 	private List<CrawlerProgress> crawlerProgress;
 
+	/**
+	 * Use this method for getting information about stage of crawling;
+	 * 
+	 * @param crawlerId
+	 * @return an entity that represent current progress for crawler;
+	 */
 	public List<CrawlerProgress> getProgress(ObjectId crawlerId) {
 		crawlerProgress = new ArrayList<>();
 		getVacancyProgress(crawlerId);

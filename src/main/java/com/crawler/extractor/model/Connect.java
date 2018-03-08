@@ -1,9 +1,10 @@
 package com.crawler.extractor.model;
-import java.util.List;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Field;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Yevhenii R
@@ -23,8 +24,7 @@ public class Connect {
 	@Field(value = "parser_id")
 	private List<ObjectId> parserId;
 
-	public Connect() {
-	}
+	public Connect() {}
 
 	public Connect(String subSkill, int weight, List<ObjectId> parserId) {
 		this.subSkill = subSkill;
@@ -55,5 +55,4 @@ public class Connect {
 	public void setParserId(List<ObjectId> parserId) {
 		this.parserId = parserId;
 	}
-	
 }
