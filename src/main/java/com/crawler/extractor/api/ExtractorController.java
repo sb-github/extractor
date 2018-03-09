@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crawler.extractor.model.CrawlerProgress;
 import com.crawler.extractor.model.GraphSkill;
 import com.crawler.extractor.model.Skill;
+import com.crawler.extractor.model.SkillsArray;
 import com.crawler.extractor.model.Vacancy;
 import com.crawler.extractor.service.CrawlerProgressService;
 import com.crawler.extractor.service.GraphSkillService;
@@ -28,7 +30,7 @@ import com.crawler.extractor.service.GraphSkillService;
  */
 @PropertySource(value = "classpath:crawler.properties")
 @RestController
-@RequestMapping("extractor/rest/v1/")
+@RequestMapping("extractor/rest/v1")
 public class ExtractorController {
 	@Autowired
 	private GraphSkillService graphSkillService;
@@ -75,6 +77,19 @@ public class ExtractorController {
 		try {
 			List<GraphSkill> result = graphSkillService.findByCrawlerId(crawlerId, page, size);
 			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@RequestMapping(value = "/graphskill", method = RequestMethod.POST)
+	public ResponseEntity<?> getGraphBySkillSubskillAndCrawlerId(
+			@RequestParam(value = "crawler_id") ObjectId crawlerId,
+			@RequestParam(value = "skill") String skill, @RequestBody SkillsArray subskills) {
+		try {
+			GraphSkill graphSkill = graphSkillService.findBySkillAndSubSkillAndCrawlerId(skill,
+					subskills, crawlerId);			
+			return new ResponseEntity<>(graphSkill, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
