@@ -44,7 +44,7 @@ public class ExtractorController {
 	 * @param subskill
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET,value="/skill-and-subskill")
 	public ResponseEntity<?> getBySkillAndSubSkill(@RequestParam(value = "skill") String skill,
 			@RequestParam(value = "subskill", required = false,
 					defaultValue = "no") String subskill) {
