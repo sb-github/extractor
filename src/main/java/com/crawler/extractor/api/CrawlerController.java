@@ -67,8 +67,8 @@ public class CrawlerController {
 	public ResponseEntity<?> run(@RequestParam(value = "searchcondition") String searchCondition) {
 		try {
 			LOGGER.info("searchCondition: " + searchCondition);
-			crawlerService.run(searchCondition);
-			return new ResponseEntity<>(HttpStatus.OK);
+			ObjectId id =  crawlerService.run(searchCondition);
+			return new ResponseEntity<>(id, HttpStatus.OK);
 		} catch (CrawlerException e) {
 			LOGGER.error(e.getMessage());
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
