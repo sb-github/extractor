@@ -28,7 +28,7 @@ import com.crawler.extractor.service.CrawlerService;
 @RestController
 @RequestMapping("extractor/rest/v1/crawler")
 public class CrawlerController {
-	
+
 	private static final Logger LOGGER = Logger.getLogger("api-logger");
 
 	@Autowired
@@ -39,12 +39,11 @@ public class CrawlerController {
 	 * 
 	 * @param page is number of page
 	 * @param size is amount of elements displayed per page
-	 * @return ResponseEntity with the paged list of crawlers and http status 'OK' or an error
-	 *         message with the http status 'INTERNAL_SERVER_ERROR'
+	 * @return ResponseEntity with the paged list of crawlers and http status 'OK'
+	 *         or an error message with the http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> getAll(
-			@RequestParam(value = "page", defaultValue = "${default_page}") int page,
+	public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "${default_page}") int page,
 			@RequestParam(value = "size", defaultValue = "${default_size}") int size) {
 		try {
 			LOGGER.info("page: " + page + ", size: " + size);
@@ -60,14 +59,14 @@ public class CrawlerController {
 	 * Run a crawler.
 	 * 
 	 * @param searchCondition the criteria for crawler
-	 * @return ResponseEntity with http status 'OK' or an error message with the http status
-	 *         'INTERNAL_SERVER_ERROR'
+	 * @return ResponseEntity with ran crawler's id and http status 'OK' or an error
+	 *         message with the http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/run")
 	public ResponseEntity<?> run(@RequestParam(value = "searchcondition") String searchCondition) {
 		try {
 			LOGGER.info("searchCondition: " + searchCondition);
-			ObjectId id =  crawlerService.run(searchCondition);
+			ObjectId id = crawlerService.run(searchCondition);
 			return new ResponseEntity<>(id, HttpStatus.OK);
 		} catch (CrawlerException e) {
 			LOGGER.error(e.getMessage());
@@ -82,8 +81,8 @@ public class CrawlerController {
 	 * Update the crawler in database.
 	 * 
 	 * @param crawler with fields that should be updated
-	 * @return ResponseEntity with the http status 'OK' or an error message with the http status
-	 *         'INTERNAL_SERVER_ERROR'
+	 * @return ResponseEntity with the http status 'OK' or an error message with the
+	 *         http status 'INTERNAL_SERVER_ERROR'
 	 */
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestBody Crawler crawler) {
@@ -101,7 +100,7 @@ public class CrawlerController {
 	 * Find the Crawler by id
 	 * 
 	 * @param id the id of Crawler that should be shown
-	 * @return the entity of Crawler form db
+	 * @return the entity of Crawler from db
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
 	public ResponseEntity<?> getById(@PathVariable(value = "id") ObjectId id) {
