@@ -78,7 +78,7 @@ public class CrawlerService {
 	 * @param searchCondition the criteria for crawler
 	 * @throws CrawlerException
 	 */
-	public void run(String searchCondition) throws CrawlerException {
+	public ObjectId run(String searchCondition) throws CrawlerException {
 		if (isMaxActive()) {
 			throw new CrawlerException("The maximum number of crawlers is already running.");
 		}
@@ -93,6 +93,8 @@ public class CrawlerService {
 		if (result.getStatusCode() != HttpStatus.OK) {
 			throw new CrawlerException(result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
 		}
+		
+		return id;
 	}
 
 	private boolean isMaxActive() {
