@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.crawler.extractor.exception.CrawlerException;
@@ -87,11 +88,18 @@ public class CrawlerService {
 		}
 
 		ObjectId id = createCrawler(searchCondition);
-		LOGGER.info("running crawler with id: " + id);
+		LOGGER.info("Running crawler with id: " + id);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Crawler> result = restTemplate.exchange(crawlerURL + crawlerURN + id,
-				HttpMethod.POST, null, Crawler.class);
+		ResponseEntity<Crawler> result = null;
+		
+		try {
+			result = restTemplate.exchange(crawlerURL + crawlerURN + id,
+					HttpMethod.POST, null, Crawler.class);
+		} catch (RestClientException e) {
+			LOGGER.error(e.getMessage());
+			throw new CrawlerException("Connection error to " + crawlerURL + crawlerURN + id);
+		}
 		
 		if (result.getStatusCode() != HttpStatus.OK) {
 			throw new CrawlerException(result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
