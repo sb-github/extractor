@@ -2,6 +2,7 @@ package com.crawler.extractor.service;
 
 import java.util.Date;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
 import com.crawler.extractor.exception.CrawlerException;
 import com.crawler.extractor.model.Crawler;
 import com.crawler.extractor.model.Status;
@@ -77,22 +80,32 @@ public class CrawlerService {
 	 * 
 	 * @param searchCondition the criteria for crawler
 	 * @throws CrawlerException
+	 * @return ran crawler's id
 	 */
-	public void run(String searchCondition) throws CrawlerException {
+	public ObjectId run(String searchCondition) throws CrawlerException {
 		if (isMaxActive()) {
 			throw new CrawlerException("The maximum number of crawlers is already running.");
 		}
 
 		ObjectId id = createCrawler(searchCondition);
-		LOGGER.info("running crawler with id: " + id);
+		LOGGER.info("Running crawler with id: " + id);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Crawler> result = restTemplate.exchange(crawlerURL + crawlerURN + id,
-				HttpMethod.POST, null, Crawler.class);
+		ResponseEntity<Crawler> result = null;
+		
+		try {
+			result = restTemplate.exchange(crawlerURL + crawlerURN + id,
+					HttpMethod.POST, null, Crawler.class);
+		} catch (RestClientException e) {
+			LOGGER.error(e.getMessage());
+			throw new CrawlerException("Connection error to " + crawlerURL + crawlerURN + id);
+		}
 		
 		if (result.getStatusCode() != HttpStatus.OK) {
 			throw new CrawlerException(result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
 		}
+		
+		return id;
 	}
 
 	private boolean isMaxActive() {
