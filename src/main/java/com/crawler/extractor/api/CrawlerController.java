@@ -29,7 +29,7 @@ import com.crawler.extractor.service.CrawlerService;
 @RequestMapping("extractor/rest/v1/crawler")
 public class CrawlerController {
 
-	private static final Logger LOGGER = Logger.getLogger("api-logger");
+	private static final Logger LOGGER = Logger.getLogger(CrawlerController.class);
 
 	@Autowired
 	private CrawlerService crawlerService;
@@ -87,7 +87,7 @@ public class CrawlerController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@RequestBody Crawler crawler) {
 		try {
-			LOGGER.info("crawler: " + crawler);
+			LOGGER.info("Crawler: " + crawler);
 			crawlerService.update(crawler);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
