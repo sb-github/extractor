@@ -17,7 +17,7 @@ import com.crawler.extractor.repository.IGraphSkillRepository;
 
 /**
  *
- * @author Yevhenii R
+ * @author Yevhenii R, Dmytro Bilyi
  *
  * @date 15 January 2018
  * 
@@ -61,26 +61,50 @@ public class GraphSkillService {
 				.collect(Collectors.toCollection(ArrayList::new));
 	}
 
-
+	/**
+	 * Find graphSkill by skill and crawlerId which include subskills if its exist
+	 * 
+	 * @param skill
+	 * @param subskills
+	 * @param crawlerId
+	 * @return
+	 */
 	public GraphSkill findBySkillAndSubSkillAndCrawlerId(String skill, SkillsArray subskills,
 			ObjectId crawlerId) {
-		System.err.println("Got here");
 		List<Connect> listOfConnects = new ArrayList<>();
 		List<String> listOfSubskills = subskills.getSkills();
-
 		GraphSkill graphSkill = iGraphSkillRepository.findBySkillAndCrawlerId(skill, crawlerId);
-		System.out.println(listOfSubskills);
 
 		for (String subskill : listOfSubskills) {
 			for (Connect connect : graphSkill.getConnects()) {
 				if (connect.getSubSkill().equalsIgnoreCase(subskill)) {
 					listOfConnects.add(connect);
-					System.out.println(connect.getParserId()	);
 				}
 			}
 		}
-
 		graphSkill.setConnects(listOfConnects);
 		return graphSkill;
+	}
+
+	/**
+	 * 
+	 * @param subskills
+	 * @param crawlerId
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public List<GraphSkill> findBySkillAndSubSkillAndCrawlerId(SkillsArray subskills,
+			ObjectId crawlerId, int page, int size) {
+
+		List<GraphSkill> listOfGraphSkill = new ArrayList<>();
+		List<String> listOfSubskills = subskills.getSkills();
+
+		for (String skill : listOfSubskills) {
+			GraphSkill graphSkill = findBySkillAndSubSkillAndCrawlerId(skill, subskills, crawlerId);
+			listOfGraphSkill.add(graphSkill);
+		}
+		return listOfGraphSkill.stream().skip(page * size).limit(size)
+				.collect(Collectors.toCollection(ArrayList::new));
 	}
 }
