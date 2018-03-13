@@ -17,4 +17,6 @@ public interface IGraphSkillRepository extends MongoRepository<GraphSkill, Objec
 	public GraphSkill findBySkill(String skill);
 
 	public List<GraphSkill> findByCrawlerId(ObjectId id);
+
+	public GraphSkill findBySkillAndCrawlerId(String skill, ObjectId id);
 }
