@@ -44,7 +44,7 @@ public class ExtractorController {
 	 * @param subskill
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET,value="/skill-and-subskill")
+	@RequestMapping(method = RequestMethod.GET, value = "/skill-and-subskill")
 	public ResponseEntity<?> getBySkillAndSubSkill(@RequestParam(value = "skill") String skill,
 			@RequestParam(value = "subskill", required = false,
 					defaultValue = "no") String subskill) {
@@ -93,7 +93,8 @@ public class ExtractorController {
 	public ResponseEntity<?> getCrawlerProgressCount(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId) {
 		try {
-			List<CrawlerProgress> result = crawelerProgressService.getProgress(crawlerId);
+			String result = crawelerProgressService.getStatus(crawlerId);
+			// List<CrawlerProgress> result = crawelerProgressService.getProgress(crawlerId);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
