@@ -1,4 +1,4 @@
-package com.crawler.extractor.service;
+\package com.crawler.extractor.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
