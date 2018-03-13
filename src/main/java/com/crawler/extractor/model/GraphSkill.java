@@ -22,10 +22,10 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 @Document(collection = "graph_skill")
 public class GraphSkill {
 	@Id
+	@JsonIgnore
 	@JsonSerialize(using = ToStringSerializer.class)
 	private ObjectId id;
 	private String skill;
-	@JsonSerialize(using = ToStringSerializer.class)
 	@Field(value = "crawler_id")
 	private ObjectId crawlerId;
 	private List<Connect> connects;
