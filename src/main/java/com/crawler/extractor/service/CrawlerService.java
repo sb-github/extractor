@@ -32,7 +32,7 @@ import com.crawler.extractor.repository.IExtractorRepository;
 @PropertySource(value = "classpath:application.properties")
 @Service
 public class CrawlerService {
-	
+
 	private static final Logger LOGGER = Logger.getLogger(CrawlerService.class);
 
 	@Autowired
@@ -100,9 +100,9 @@ public class CrawlerService {
 			LOGGER.error(e.getMessage());
 			throw new CrawlerException("Connection error to " + crawlerURL + crawlerURN + id);
 		}
-		
 		if (result.getStatusCode() != HttpStatus.OK) {
-			throw new CrawlerException(result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
+			throw new CrawlerException(
+					result.getBody().getStatus() + ": " + result.getBody().getErrorMessage());
 		}
 		
 		return id;

@@ -29,13 +29,9 @@ public class CrawlerProgress {
 		this.collection = collection;
 	}
 
-	public long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(long amount) {
-		this.amount = amount;
-	}
+	public void setCollecetion(String collecetion) {
+		this.collection = collecetion;
+	}	
 
 	public Status getVacancyStatus() {
 		return vacancyStatus;
@@ -45,4 +41,11 @@ public class CrawlerProgress {
 		this.vacancyStatus = vacancyStatus;
 	}
 
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
 }

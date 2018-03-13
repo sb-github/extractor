@@ -11,13 +11,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
+ * Class that represents collection of graph_skill;
  *
  * @author Yevhenii R
  *
  * @date 10 January 2018
  * 
- *       Class that represents collection of graph_skill;
- *
  */
 @Document(collection = "graph_skill")
 public class GraphSkill {

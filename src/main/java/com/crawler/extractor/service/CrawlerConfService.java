@@ -36,7 +36,7 @@ public class CrawlerConfService {
 	public void update(CrawlerConf crawlerConf) {
 		crawlerConfRepository.save(crawlerConf);
 	}
-	
+
 	/**
 	 * Get maximum number of active crawler
 	 * 
@@ -45,5 +45,4 @@ public class CrawlerConfService {
 	public Integer getMaxNumberActiveCrawler() {
 		return findAll().get(0).getMaxNumberActiveCrawler();
 	}
-
 }

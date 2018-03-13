@@ -14,11 +14,10 @@ import com.crawler.extractor.repository.IVacancy;
  * 
  * This service represent the API to get the view representation of the stage in which crawler is.
  * 
- * @author Alexander Torchynskyi
+ * @author Alexander Torchynskyi, Dmytro Bilyi;
  *
  * @date 31 January 2018
  */
-
 @Component
 public class CrawlerProgressService {
 
@@ -32,6 +31,35 @@ public class CrawlerProgressService {
 
 	private List<CrawlerProgress> crawlerProgress;
 
+	/**
+	 * Use this method for getting information about stage of crawling;
+	 * 
+	 * 
+	 * @param crawlerId
+	 * @return a string that has four different stages;
+	 */
+	public String getStatus(ObjectId crawlerId) {
+		if (getVacancyStatusProgressed(crawlerId) > 0 && getVacancyStatusNew(crawlerId) == 0
+				&& getProgressedVacancyStatusProgressed(crawlerId) == 0
+				&& getProgressedVacancyStatusNew(crawlerId) == 0) {
+			return "2/4";
+		}
+		if (getProgressedVacancyStatusNew(crawlerId) > 0) {
+			return "3/4";
+		}
+		if (getProgressedVacancyStatusProgressed(crawlerId) > 0
+				&& getProgressedVacancyStatusNew(crawlerId) == 0) {
+			return "4/4";
+		}
+		return "1/4";
+	}
+
+	/**
+	 * Use this method for getting information about stage of crawling;
+	 * 
+	 * @param crawlerId
+	 * @return an entity that represent current progress for crawler;
+	 */
 	public List<CrawlerProgress> getProgress(ObjectId crawlerId) {
 		crawlerProgress = new ArrayList<>();
 		getVacancyProgress(crawlerId);
@@ -47,8 +75,8 @@ public class CrawlerProgressService {
 				new CrawlerProgress(NAME_OF_VACANCY_COLLECTION,
 						getVacancyStatusProgressed(crawlerId), Status.PROCESSED);
 
-		crawlerProgress.add(progressOfvacancyProgressed);
 		crawlerProgress.add(progressOfVacancyNew);
+		crawlerProgress.add(progressOfvacancyProgressed);
 	}
 
 	private void getParsedVacancyProgress(ObjectId crawlerId) {
@@ -60,8 +88,8 @@ public class CrawlerProgressService {
 				new CrawlerProgress(NAME_OF_PARSED_VACANCY_COLLECTION,
 						getProgressedVacancyStatusProgressed(crawlerId), Status.PROCESSED);
 
-		crawlerProgress.add(progressOfvacancyProgressed);
 		crawlerProgress.add(progressOfVacancyNew);
+		crawlerProgress.add(progressOfvacancyProgressed);
 	}
 
 	private long getVacancyStatusNew(ObjectId crawlerId) {
