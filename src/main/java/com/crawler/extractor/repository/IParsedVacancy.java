@@ -1,5 +1,6 @@
 package com.crawler.extractor.repository;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ import com.crawler.extractor.model.Status;
 public interface IParsedVacancy extends MongoRepository<ParsedVacancy, ObjectId> {
 
 	long countByCrawlerIdAndStatus(ObjectId crawlerId, Status status);
+
+	List<ParsedVacancy> findByIdIn(List<ObjectId> id);
 }
