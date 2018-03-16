@@ -1,6 +1,7 @@
 package com.crawler.extractor.api;
 
 import java.util.List;
+import java.util.Map;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -17,6 +18,7 @@ import com.crawler.extractor.model.Skill;
 import com.crawler.extractor.model.SkillsArray;
 import com.crawler.extractor.service.CrawlerProgressService;
 import com.crawler.extractor.service.GraphSkillService;
+import com.crawler.extractor.service.ParsedVacancyService;
 
 /**
  * RESTful API for graph_skill controller;
@@ -35,6 +37,8 @@ public class ExtractorController {
 	private GraphSkillService graphSkillService;
 	@Autowired
 	private CrawlerProgressService crawelerProgressService;
+	@Autowired
+	private ParsedVacancyService parsedVacancyService;
 
 	/**
 	 * 
@@ -67,7 +71,6 @@ public class ExtractorController {
 	 * @param size
 	 * @return
 	 */
-
 	@RequestMapping(value = "/graphskill", method = RequestMethod.GET)
 	public ResponseEntity<?> getGraphSkillByCrawler(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId,
@@ -138,13 +141,30 @@ public class ExtractorController {
 	 * @param crawlerId
 	 * @return List<CrawlerProgress>
 	 */
-
 	@RequestMapping(value = "/progress", method = RequestMethod.GET)
 	public ResponseEntity<?> getCrawlerProgressCount(
 			@RequestParam(value = "crawler_id") ObjectId crawlerId) {
 		try {
 			String result = crawelerProgressService.getStatus(crawlerId);
 			// List<CrawlerProgress> result = crawelerProgressService.getProgress(crawlerId);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
+	 * 
+	 * Accept array of ids. Returns map of vacancy links; where the key is an id and the value is a
+	 * link
+	 * 
+	 * @param listOfParsedVacancy
+	 * @return map where the key is an id and the value is a link
+	 */
+	@RequestMapping(value = "/get/parsed-vacancy", method = RequestMethod.POST)
+	public ResponseEntity<?> getParsedVacancy(@RequestBody List<ObjectId> listOfParsedVacancy) {
+		try {
+			Map<ObjectId, String> result = parsedVacancyService.getLinks(listOfParsedVacancy);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
